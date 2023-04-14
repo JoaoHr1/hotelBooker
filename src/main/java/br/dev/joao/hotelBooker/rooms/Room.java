@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Embeddable
 @EqualsAndHashCode(of = "id")
 public class Room {
 

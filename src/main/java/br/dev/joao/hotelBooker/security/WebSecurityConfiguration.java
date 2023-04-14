@@ -25,7 +25,7 @@ public class WebSecurityConfiguration {
         return http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeHttpRequests()
-                .requestMatchers("/rooms/**").permitAll()
+                .requestMatchers("/rooms/**").permitAll().requestMatchers("/guests/**").permitAll()
                 .anyRequest().authenticated().and().build();
 
 
