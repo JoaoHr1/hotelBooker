@@ -18,12 +18,27 @@ public class RoomsController {
     @Autowired
     private RoomsRepository repository;
 
-    @GetMapping
-    public ResponseEntity <Page<DataListRoom>> list(@PageableDefault(size = 10, sort = {"id"})Pageable paginable) {
+    @GetMapping("/available")
+    public ResponseEntity <Page<DataListRoom>> listAvailableRooms(@PageableDefault(size = 10, sort = {"id"})Pageable paginable) {
         var page = repository.findAllByisAvailableTrue(paginable).map(DataListRoom::new);
 
         return ResponseEntity.ok(page);
     }
+
+    @GetMapping("/unavailable")
+    public ResponseEntity listUnavailableRooms(@PageableDefault(size =10, sort = {"id"}) Pageable paginable) {
+        var page = repository.findAllByisAvailableFalse(paginable).map(DataListRoom::new);
+
+        return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity listOneRoom(@PathVariable Long id) {
+        var room = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DataDetailRoom(room));
+    }
+
+
 
     @PostMapping
     @Transactional
@@ -34,4 +49,34 @@ public class RoomsController {
 
         return ResponseEntity.created(uri).body(new DataDetailRoom(room));
     }
+
+    @DeleteMapping("/unavailable/{id}")
+    @Transactional
+    public ResponseEntity setRoomNotAvailable(@PathVariable Long id) {
+        var room = repository.getReferenceById(id);
+        room.IsNotAvailable();
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/available/{id}")
+    @Transactional
+    public ResponseEntity setRoomAvailable(@PathVariable Long id) {
+        var room = repository.getReferenceById(id);
+        room.isAvailable();
+
+        return ResponseEntity.ok(new DataDetailRoom(room));
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity updateRoom(@RequestBody @Valid DataUpdateRoom rooms) {
+        var room = repository.getReferenceById(rooms.id());
+        room.updateData(rooms);
+
+        return ResponseEntity.ok(new DataDetailRoom(room));
+    }
+
+
 }
+

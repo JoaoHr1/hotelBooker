@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Room {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -36,6 +37,31 @@ public class Room {
         this.roomType = room.roomType();
         this.pricePerNight = room.pricePerNight();
 
+    }
+
+    public void isAvailable() {
+        if (this.isAvailable != true) {
+            this.isAvailable = true;
+        }
+    }
+
+    public void IsNotAvailable() {
+        this.isAvailable = false;
+    }
+
+    public void updateData(DataUpdateRoom rooms) {
+        if (rooms.name() != null) {
+            this.name = rooms.name();
+        }
+        if (rooms.description() != null) {
+            this.description = rooms.description();
+        }
+        if (rooms.roomType() != null) {
+            this.roomType = rooms.roomType();
+        }
+        if (rooms.pricePerNight() != null) {
+            this.pricePerNight = rooms.pricePerNight();
+        }
     }
 
 }
