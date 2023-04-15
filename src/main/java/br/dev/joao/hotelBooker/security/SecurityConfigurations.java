@@ -1,6 +1,5 @@
 package br.dev.joao.hotelBooker.security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,20 +14,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfiguration {
+public class SecurityConfigurations {
+    @Autowired
+    private SecurityFilter securityFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeHttpRequests()
-                .requestMatchers("/rooms/**").permitAll().requestMatchers("/guests/**").permitAll()
-                .anyRequest().authenticated().and().build();
-
-
+                .requestMatchers("/**").permitAll()
+                .anyRequest().authenticated()
+                .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Bean

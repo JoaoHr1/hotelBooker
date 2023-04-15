@@ -1,6 +1,8 @@
 package br.dev.joao.hotelBooker.controller;
 
+import br.dev.joao.hotelBooker.exceptions.ValidationException;
 import br.dev.joao.hotelBooker.guests.*;
+import br.dev.joao.hotelBooker.rooms.Room;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,7 +42,6 @@ public class GuestController {
         var uri = uriComponentsBuilder.path("/guests/{id}").buildAndExpand(guest.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DataDetailGuest(guest));
-
     }
 
     @DeleteMapping("/{id}")
