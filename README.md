@@ -1,6 +1,14 @@
 ![Logo Hotel Booker](https://user-images.githubusercontent.com/115806935/232183425-3f2bde6d-d918-4979-b29c-88f12aad5860.png)
 <h3>Hotel Booker is a project made with java and Spring Boot that help hotels to manage their rooms and guests using Rest API architecture.</h3>
 
+---
+
+<h3> Configuration </h3>
+
+To run Hotel Booker, you need to have the Java Development Kit (JDK) 17.0.6 and PostgreSql installed and configured on your machine.
+
+
+
 >**Endpoints & Demonstration**
 >
 | METHOD | ENDPOINT | DESCRIPTION | CODE |
