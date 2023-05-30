@@ -47,7 +47,7 @@ To run Hotel Booker, you need to have the Java Development Kit (JDK) 17.0.6 and 
 
 <li>description - describe important informations about the room 
 
-<li>roomType - enums that can be "STANDARD", "MASTER" or "DELUXE"
+<li>roomType - enumerates Strings that can be one of those: "STANDARD", "MASTER" or "DELUXE"
 
 <li>pricePerNight - the cost per night of the room
 
